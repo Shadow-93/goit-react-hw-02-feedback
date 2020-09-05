@@ -1,54 +1,54 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
-import Section from './Section/Section'
-import FeedbackOptions from './FeedBackOptions/FeedbackOptions';
-import Statistics from './Statistics/Statistics';
+import Section from "./Section/Section";
+import FeedbackOptions from "./FeedBackOptions/FeedbackOptions";
+import Statistics from "./Statistics/Statistics";
 
 class App extends Component {
   state = {
-      good: 0,
-      neutral: 0,
-      bad: 0
-  }
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
 
-  keys = Object.keys(this.state)
+  keys = Object.keys(this.state);
 
   countTotalFeedback = () => {
-      const {good, neutral, bad} = this.state;
-      return (
-      good + neutral + bad
-      );
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
   };
-  
-  countPositiveFeedbackPercentage = () => {
-  const total = this.countTotalFeedback();
-  const {good} = this.state
 
-  return (Math.round(good/total*100))
-  }
+  countPositiveFeedbackPercentage = () => {
+    const total = this.countTotalFeedback();
+    const { good } = this.state;
+
+    return Math.round((good / total) * 100);
+  };
 
   increment = (e) => {
     const key = e.target.name;
-      this.setState(prevState=>({[key]: prevState[key]+1}))
-  }
+    this.setState((prevState) => ({ [key]: prevState[key] + 1 }));
+  };
 
   render() {
-      return (
-        <>
+    return (
+      <>
         <Section title="Please leave feedback">
-          <FeedbackOptions 
-          options={this.keys} 
-          onLeaveFeedback={this.increment}/>
+          <FeedbackOptions
+            options={this.keys}
+            onLeaveFeedback={this.increment}
+          />
         </Section>
 
         <Section title="Statistics">
-          <Statistics 
-          {...this.state}
-          total={this.countTotalFeedback()} 
-          positivePercentage={this.countPositiveFeedbackPercentage()} />
-        </Section> 
-        </>
-      )
+          <Statistics
+            {...this.state}
+            total={this.countTotalFeedback()}
+            positivePercentage={this.countPositiveFeedbackPercentage()}
+          />
+        </Section>
+      </>
+    );
   }
 }
 
