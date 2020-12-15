@@ -12,8 +12,6 @@ class App extends Component {
     bad: 0,
   };
 
-  keys = Object.keys(this.state);
-
   countTotalFeedback = () => {
     const total = (acc, value) => acc + value;
     return Object.values(this.state).reduce(total);
@@ -33,6 +31,7 @@ class App extends Component {
 
   render() {
     const keys = Object.keys(this.state);
+    const total = this.countTotalFeedback();
     return (
       <>
         <Section title="Please leave feedback">
@@ -40,10 +39,10 @@ class App extends Component {
         </Section>
 
         <Section title="Statistics">
-          {this.countTotalFeedback() ? (
+          {total ? (
             <Statistics
               {...this.state}
-              total={this.countTotalFeedback()}
+              total={total}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           ) : (
